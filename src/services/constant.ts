@@ -1,3 +1,25 @@
+import Constants from 'expo-constants';
+import { AppConfig } from '../../app.config';
+
+const {
+  API_KEY_FIREBASE,
+  APP_ID_FIREBASE,
+  AUTH_DOMAIN_FIREBASE,
+  MEASUREMENT_ID_FIREBASE,
+  MESSAGING_SEND_ID_FIREBASE,
+  PROJECT_ID_FIREBASE,
+  STORAGE_BUCKET_FIREBASE,
+} = Constants.manifest?.extra as AppConfig;
+
 const TOKEN_KEY = 'TOKEN_JWT_ACCESS';
 
-export { TOKEN_KEY };
+export {
+  TOKEN_KEY,
+  API_KEY_FIREBASE,
+  APP_ID_FIREBASE,
+  AUTH_DOMAIN_FIREBASE,
+  MEASUREMENT_ID_FIREBASE,
+  MESSAGING_SEND_ID_FIREBASE,
+  PROJECT_ID_FIREBASE,
+  STORAGE_BUCKET_FIREBASE,
+};
