@@ -14,7 +14,7 @@ import theme from './src/styles/theme';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const [fontsLoaded] = useFonts({
+  useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_700Bold,
