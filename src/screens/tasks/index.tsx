@@ -5,8 +5,9 @@ import { Button, Icon, ScrollView, VStack } from 'native-base';
 import { Card } from '../../components/Card';
 import { Header } from '../../components/Header';
 import { Actions, Container, TextPrimary, Wrapper } from './styles';
+import { TasksProps } from './types';
 
-function Tasks() {
+function Tasks({ navigation }: TasksProps) {
   const today = format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR });
 
   return (
@@ -57,6 +58,7 @@ function Tasks() {
           leftIcon={<Icon as={AntDesign} name="plus" size="md" />}
           marginTop={6}
           bgColor="#006AFF"
+          onPress={() => navigation.navigate('Create')}
         >
           Criar nova tarefa
         </Button>

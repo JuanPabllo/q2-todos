@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
+import { CreateTasks } from './src/screens/createTasks';
 import { LoginScreen } from './src/screens/login';
 import { RegisterScreen } from './src/screens/register';
 import { Tasks } from './src/screens/tasks';
@@ -31,6 +32,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Tasks" component={Tasks} />
+            <Stack.Screen name="Create" component={CreateTasks} />
           </Stack.Navigator>
         </NativeBaseProvider>
       </ThemeProvider>
