@@ -11,6 +11,7 @@ import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { LoginScreen } from './src/screens/login';
 import { RegisterScreen } from './src/screens/register';
+import { Tasks } from './src/screens/tasks';
 import theme from './src/styles/theme';
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Tasks" component={Tasks} />
           </Stack.Navigator>
         </NativeBaseProvider>
       </ThemeProvider>
