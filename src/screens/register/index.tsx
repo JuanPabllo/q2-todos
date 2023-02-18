@@ -13,11 +13,12 @@ import {
 } from 'native-base';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image, Keyboard } from 'react-native';
+import { Keyboard } from 'react-native';
+import { Header } from '../../components/Header';
 import { saveSecureStore } from '../../helpers/secureStore';
 import { TOKEN_KEY } from '../../services/constant';
 import { auth } from '../../services/firebase';
-import { Container, Form, Header, TextPrimary, Wrapper } from './styles';
+import { Container, Form, TextPrimary, Wrapper } from './styles';
 import {
   FormRegisterSchema,
   FormRegisterSchemaType,
@@ -58,6 +59,8 @@ function RegisterScreen({ navigation }: RegisterProps) {
         description:
           'Sucesso... Sua conta foi criada aguarde que você será redirecionado.',
       });
+
+      navigation.navigate('Tasks');
     } catch (err) {
       toast.show({
         bg: 'red.400',
@@ -70,9 +73,7 @@ function RegisterScreen({ navigation }: RegisterProps) {
 
   return (
     <Container>
-      <Header>
-        <Image source={require('../../assets/icons/q2-logo.png')} />
-      </Header>
+      <Header />
       <Form>
         <TextPrimary>Olá, seja bem vindo(a). Vamos começar?</TextPrimary>
         <Wrapper>

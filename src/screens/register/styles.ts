@@ -5,13 +5,6 @@ export const Container = styled.View`
   height: 100%;
 `;
 
-export const Header = styled.View`
-  width: 100%;
-  height: 80px;
-  align-items: flex-start;
-  padding: 40px 0 0 35px;
-`;
-
 export const Form = styled.View`
   margin-top: 38px;
   padding: 20px;

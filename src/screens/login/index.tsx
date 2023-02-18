@@ -13,11 +13,12 @@ import {
 } from 'native-base';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image, Keyboard } from 'react-native';
+import { Keyboard } from 'react-native';
+import { Header } from '../../components/Header';
 import { saveSecureStore } from '../../helpers/secureStore';
 import { TOKEN_KEY } from '../../services/constant';
 import { auth } from '../../services/firebase';
-import { Container, Form, Header, TextPrimary, Wrapper } from './styles';
+import { Container, Form, TextPrimary, Wrapper } from './styles';
 import { FormLoginSchema, FormLoginSchemaType, LoginProps } from './types';
 
 function LoginScreen({ navigation }: LoginProps) {
@@ -53,6 +54,8 @@ function LoginScreen({ navigation }: LoginProps) {
         bg: 'green.400',
         description: 'Sucesso... Aguarde que você será redirecionado.',
       });
+
+      navigation.navigate('Tasks');
     } catch (err) {
       toast.show({
         bg: 'red.400',
@@ -65,9 +68,7 @@ function LoginScreen({ navigation }: LoginProps) {
 
   return (
     <Container>
-      <Header>
-        <Image source={require('../../assets/icons/q2-logo.png')} />
-      </Header>
+      <Header />
       <Form>
         <TextPrimary>Olá, que bom te ver de novo. Vamos começar?</TextPrimary>
         <Wrapper>
