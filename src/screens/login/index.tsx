@@ -13,7 +13,7 @@ import {
 } from 'native-base';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image } from 'react-native';
+import { Image, Keyboard } from 'react-native';
 import { saveSecureStore } from '../../helpers/secureStore';
 import { TOKEN_KEY } from '../../services/constant';
 import { auth } from '../../services/firebase';
@@ -27,6 +27,7 @@ function LoginScreen({ navigation }: LoginProps) {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormLoginSchemaType>({
     defaultValues: {
@@ -39,11 +40,13 @@ function LoginScreen({ navigation }: LoginProps) {
   const onSubmit = async (data: FormLoginSchemaType): Promise<void> => {
     try {
       setIsLoading(true);
+      Keyboard.dismiss();
       const response = await signInWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
+      reset();
 
       await saveSecureStore(TOKEN_KEY, response.user.uid);
       await toast.show({

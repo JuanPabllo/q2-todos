@@ -13,7 +13,7 @@ import {
 } from 'native-base';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image } from 'react-native';
+import { Image, Keyboard } from 'react-native';
 import { saveSecureStore } from '../../helpers/secureStore';
 import { TOKEN_KEY } from '../../services/constant';
 import { auth } from '../../services/firebase';
@@ -31,6 +31,7 @@ function RegisterScreen({ navigation }: RegisterProps) {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormRegisterSchemaType>({
     defaultValues: {
@@ -43,11 +44,13 @@ function RegisterScreen({ navigation }: RegisterProps) {
   const onSubmit = async (data: FormRegisterSchemaType): Promise<void> => {
     try {
       setIsLoading(true);
+      Keyboard.dismiss();
       const response = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
+      reset();
 
       await saveSecureStore(TOKEN_KEY, response.user.uid);
       toast.show({
