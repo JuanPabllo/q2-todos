@@ -10,6 +10,7 @@ import { NativeBaseProvider } from 'native-base';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { LoginScreen } from './src/screens/login';
+import { RegisterScreen } from './src/screens/register';
 import theme from './src/styles/theme';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <StatusBar barStyle="light-content" animated />
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
           </Stack.Navigator>
         </NativeBaseProvider>
       </ThemeProvider>

@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {
   Button,
   FormControl,
@@ -18,9 +18,13 @@ import { saveSecureStore } from '../../helpers/secureStore';
 import { TOKEN_KEY } from '../../services/constant';
 import { auth } from '../../services/firebase';
 import { Container, Form, Header, TextPrimary, Wrapper } from './styles';
-import { FormLoginSchema, FormLoginSchemaType, LoginProps } from './types';
+import {
+  FormRegisterSchema,
+  FormRegisterSchemaType,
+  RegisterProps,
+} from './types';
 
-function LoginScreen({ navigation }: LoginProps) {
+function RegisterScreen({ navigation }: RegisterProps) {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
@@ -28,32 +32,33 @@ function LoginScreen({ navigation }: LoginProps) {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormLoginSchemaType>({
+  } = useForm<FormRegisterSchemaType>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(FormLoginSchema),
+    resolver: zodResolver(FormRegisterSchema),
   });
 
-  const onSubmit = async (data: FormLoginSchemaType): Promise<void> => {
+  const onSubmit = async (data: FormRegisterSchemaType): Promise<void> => {
     try {
       setIsLoading(true);
-      const response = await signInWithEmailAndPassword(
+      const response = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
 
       await saveSecureStore(TOKEN_KEY, response.user.uid);
-      await toast.show({
+      toast.show({
         bg: 'green.400',
-        description: 'Sucesso... Aguarde que você será redirecionado.',
+        description:
+          'Sucesso... Sua conta foi criada aguarde que você será redirecionado.',
       });
     } catch (err) {
       toast.show({
         bg: 'red.400',
-        description: 'Usuário não encontrado, tente novamente...',
+        description: 'Email já cadastro',
       });
     } finally {
       setIsLoading(false);
@@ -66,7 +71,7 @@ function LoginScreen({ navigation }: LoginProps) {
         <Image source={require('../../assets/icons/q2-logo.png')} />
       </Header>
       <Form>
-        <TextPrimary>Olá, que bom te ver de novo. Vamos começar?</TextPrimary>
+        <TextPrimary>Olá, seja bem vindo(a). Vamos começar?</TextPrimary>
         <Wrapper>
           <View>
             <Controller
@@ -153,15 +158,15 @@ function LoginScreen({ navigation }: LoginProps) {
             bg="#006AFF"
             onPress={handleSubmit(onSubmit)}
           >
-            Entrar
+            Criar conta
           </Button>
           <Button
             variant="ghost"
             w={200}
             bg="#fff"
-            onPress={() => navigation.navigate('Register')}
+            onPress={() => navigation.navigate('Login')}
           >
-            Não tenho cadastro
+            Já tenho conta
           </Button>
         </Wrapper>
       </Form>
@@ -169,4 +174,4 @@ function LoginScreen({ navigation }: LoginProps) {
   );
 }
 
-export { LoginScreen };
+export { RegisterScreen };
