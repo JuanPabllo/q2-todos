@@ -4,7 +4,10 @@ import { Header as HeaderStyles } from './styles';
 function Header() {
   return (
     <HeaderStyles>
-      <Image source={require('../../assets/icons/q2-logo.png')} />
+      <Image
+        alt="Logo Q2 Bank"
+        source={require('../../assets/icons/q2-logo.png')}
+      />
     </HeaderStyles>
   );
 }
