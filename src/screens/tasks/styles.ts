@@ -22,6 +22,12 @@ export const Actions = styled.View`
   margin-bottom: 38px;
 `;
 
+export const NoData = styled.View`
+  justify-content: space-between;
+  align-items: center;
+  min-height: 450px;
+`;
+
 export const TextPrimary = styled.Text<TextPrimaryProps>`
   font-weight: 400;
   font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : '20px')};

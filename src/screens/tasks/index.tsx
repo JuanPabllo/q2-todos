@@ -1,21 +1,32 @@
 import { AntDesign } from '@expo/vector-icons';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Button, Icon, ScrollView, useToast, VStack } from 'native-base';
-import { useEffect, useState } from 'react';
+import LottieView from 'lottie-react-native';
+import {
+  Button,
+  Icon,
+  ScrollView,
+  Spinner,
+  useToast,
+  VStack,
+} from 'native-base';
+import { useEffect, useRef, useState } from 'react';
 import { Card } from '../../components/Card';
 import { Header } from '../../components/Header';
 import { GetTasks } from '../../services/tasks/requests';
 import { TasksDataResponse } from '../../services/tasks/types';
-import { Actions, Container, TextPrimary, Wrapper } from './styles';
+import { Actions, Container, NoData, TextPrimary, Wrapper } from './styles';
 import { TasksProps } from './types';
 
 function Tasks({ navigation }: TasksProps) {
   const [data, setData] = useState<TasksDataResponse[]>([]);
+  const [loading, setLoading] = useState(false);
   const today = format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR });
   const toast = useToast();
+  const animation = useRef(null);
 
   const handleGetAllTasks = async () => {
+    setLoading(true);
     try {
       const response = await GetTasks();
       setData(response);
@@ -24,6 +35,8 @@ function Tasks({ navigation }: TasksProps) {
         bg: 'red.400',
         description: 'Tarefas não encontradas.',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,17 +62,33 @@ function Tasks({ navigation }: TasksProps) {
             leftIcon={<Icon as={AntDesign} name="filter" size="md" />}
           />
         </Actions>
-        <ScrollView w={['400', '700']} h={450}>
-          {data?.map((task) => (
-            <Card
-              date={task.date}
-              tag={task.tag}
-              title={task.description}
-              id={task.id}
-              key={task.id}
+        {loading && <Spinner size="lg" />}
+        {data.length ? (
+          <ScrollView w={['400', '700']} h={450}>
+            {data.map((task) => (
+              <Card
+                date={task.date}
+                tag={task.tag}
+                title={task.description}
+                id={task.id}
+                key={task.id}
+              />
+            ))}
+          </ScrollView>
+        ) : (
+          <NoData>
+            <LottieView
+              autoPlay
+              loop={true}
+              ref={animation}
+              style={{
+                width: 350,
+                height: 350,
+              }}
+              source={require('../../assets/animations/no-data.json')}
             />
-          ))}
-        </ScrollView>
+          </NoData>
+        )}
         <Button
           leftIcon={<Icon as={AntDesign} name="plus" size="md" />}
           marginTop={6}
