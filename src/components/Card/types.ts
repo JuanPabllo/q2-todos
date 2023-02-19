@@ -7,4 +7,5 @@ export type CardProps = {
   date: Date;
   hour: Date;
   finish: boolean;
+  onDeleteTask: (id: number) => Promise<void>;
 };

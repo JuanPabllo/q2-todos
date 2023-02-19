@@ -13,7 +13,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { Card } from '../../components/Card';
 import { Header } from '../../components/Header';
-import { GetTasks } from '../../services/tasks/requests';
+import { DeleteTasks, GetTasks } from '../../services/tasks/requests';
 import { TasksDataResponse } from '../../services/tasks/types';
 import { Actions, Container, NoData, TextPrimary, Wrapper } from './styles';
 import { TasksProps } from './types';
@@ -21,6 +21,7 @@ import { TasksProps } from './types';
 function Tasks({ navigation }: TasksProps) {
   const [data, setData] = useState<TasksDataResponse[]>([]);
   const [loading, setLoading] = useState(false);
+  const [id, setId] = useState(0);
   const today = format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR });
   const toast = useToast();
   const animation = useRef(null);
@@ -40,11 +41,27 @@ function Tasks({ navigation }: TasksProps) {
     }
   };
 
+  const handleDeleteTask = async (id: number): Promise<void> => {
+    try {
+      await DeleteTasks(id);
+      setId(id);
+    } catch {
+      toast.show({
+        bg: 'red.400',
+        description: 'Erro ao excluir tarefa.',
+      });
+    }
+  };
+
   useEffect(() => {
     navigation.addListener('focus', () => {
       handleGetAllTasks();
     });
   }, [navigation]);
+
+  useEffect(() => {
+    handleGetAllTasks();
+  }, [id]);
 
   return (
     <Container>
@@ -76,6 +93,7 @@ function Tasks({ navigation }: TasksProps) {
                 id={task.id}
                 finish={task.finish}
                 key={task.id}
+                onDeleteTask={() => handleDeleteTask(task.id)}
               />
             ))}
           </ScrollView>

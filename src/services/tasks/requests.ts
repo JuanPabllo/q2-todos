@@ -21,6 +21,14 @@ export const GetTasks = async (): Promise<TasksDataResponse[]> => {
   }
 };
 
+export const DeleteTasks = async (id: number): Promise<void> => {
+  try {
+    await api.delete(`/tasks/${id}`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const PutFinishTask = async (
   id: number,
   data: TasksData
