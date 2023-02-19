@@ -5,6 +5,7 @@ export type TasksData = {
   hour: Date;
   date: Date;
   tag: Tag;
+  finish: boolean;
 };
 
 export interface TasksDataResponse extends TasksData {

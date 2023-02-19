@@ -70,9 +70,11 @@ function Tasks({ navigation }: TasksProps) {
             {data.map((task) => (
               <Card
                 date={task.date}
+                hour={task.hour}
                 tag={task.tag}
                 title={task.description}
                 id={task.id}
+                finish={task.finish}
                 key={task.id}
               />
             ))}

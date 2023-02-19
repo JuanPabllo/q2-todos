@@ -14,7 +14,7 @@ import {
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Header } from '../../components/Header';
-import { postCreateTasks } from '../../services/tasks/requests';
+import { PostCreateTasks } from '../../services/tasks/requests';
 import { Tag, TasksData } from '../../services/tasks/types';
 import { Container, ContainerTags, Form, Infos, TextPrimary } from './styles';
 import {
@@ -47,10 +47,11 @@ function CreateTasks({ navigation }: CreateTasksProps) {
       hour: time,
       date,
       tag,
+      finish: false,
     };
 
     try {
-      await postCreateTasks(formattedData);
+      await PostCreateTasks(formattedData);
       toast.show({
         bg: 'green.400',
         description: 'Tarefa criada com sucesso.',

@@ -1,7 +1,7 @@
 import { api } from '../api';
 import { TasksData, TasksDataResponse } from './types';
 
-export const postCreateTasks = async (data: TasksData) => {
+export const PostCreateTasks = async (data: TasksData) => {
   try {
     const { data: response } = await api.post('/tasks', data);
     return response;
@@ -18,5 +18,22 @@ export const GetTasks = async (): Promise<TasksDataResponse[]> => {
     console.log(err);
 
     return [];
+  }
+};
+
+export const PutFinishTask = async (
+  id: number,
+  data: TasksData
+): Promise<void> => {
+  try {
+    await api.put(`/tasks/${id}`, {
+      description: data.description,
+      hour: data.hour,
+      date: data.date,
+      tag: data.tag,
+      finish: data.finish,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };

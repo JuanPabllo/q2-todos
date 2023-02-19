@@ -28,6 +28,7 @@ export const InfoItem = styled.View`
   justify-content: space-between;
   align-items: center;
   width: 60px;
+  margin-left: 12px;
 `;
 
 export const Tag = styled.Text`
@@ -36,4 +37,5 @@ export const Tag = styled.Text`
   padding: 3px;
   border-radius: 10px;
   font-weight: 500;
+  margin-left: 12px;
 `;
