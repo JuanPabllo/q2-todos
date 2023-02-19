@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import {
   Button,
   FormControl,
+  HStack,
   Icon,
   Input,
   useToast,
@@ -14,8 +15,8 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Header } from '../../components/Header';
 import { postCreateTasks } from '../../services/tasks/requests';
-import { TasksData } from '../../services/tasks/types';
-import { Container, Form, Infos, TextPrimary } from './styles';
+import { Tag, TasksData } from '../../services/tasks/types';
+import { Container, ContainerTags, Form, Infos, TextPrimary } from './styles';
 import {
   CreateTasksProps,
   FormCreateTasksSchema,
@@ -27,6 +28,7 @@ function CreateTasks({ navigation }: CreateTasksProps) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [time, setTime] = useState(new Date());
   const [date, setDate] = useState(new Date());
+  const [tag, setTag] = useState<Tag>('Q2BANK');
   const {
     control,
     handleSubmit,
@@ -44,6 +46,7 @@ function CreateTasks({ navigation }: CreateTasksProps) {
       description: data.description,
       hour: time,
       date,
+      tag,
     };
 
     try {
@@ -90,11 +93,10 @@ function CreateTasks({ navigation }: CreateTasksProps) {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl isInvalid={Boolean(errors?.description?.message)}>
-              <FormControl.Label marginLeft={3}>
+              <FormControl.Label>
                 Dê um título para a sua tarefa
               </FormControl.Label>
               <Input
-                mx="3"
                 type="text"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -120,9 +122,10 @@ function CreateTasks({ navigation }: CreateTasksProps) {
         />
 
         <FormControl>
-          <FormControl.Label marginLeft={3}>Horário limite</FormControl.Label>
+          <FormControl.Label>Horário limite</FormControl.Label>
           <Button
-            marginLeft={3}
+            justifyContent="flex-start"
+            w="100%"
             leftIcon={<AntDesign name="clockcircleo" />}
             variant="outline"
             onPress={() => setShowTimePicker(true)}
@@ -140,14 +143,15 @@ function CreateTasks({ navigation }: CreateTasksProps) {
         </FormControl>
 
         <FormControl>
-          <FormControl.Label marginLeft={3}>Data limite</FormControl.Label>
+          <FormControl.Label>Data limite</FormControl.Label>
           <Button
-            marginLeft={3}
-            leftIcon={<AntDesign name="clockcircleo" />}
+            justifyContent="flex-start"
+            w="100%"
+            leftIcon={<AntDesign name="calendar" />}
             variant="outline"
             onPress={() => setShowDatePicker(true)}
           >
-            {format(date, 'dd/MM') || '12:00'}
+            {format(date, 'dd/MM') || '12/12'}
           </Button>
           {showDatePicker && (
             <DateTimePicker
@@ -158,6 +162,39 @@ function CreateTasks({ navigation }: CreateTasksProps) {
             />
           )}
         </FormControl>
+
+        <ContainerTags>
+          <TextPrimary fontSize={16}>Selecione uma empresa:</TextPrimary>
+          <HStack marginTop={3} w="100%" justifyContent="space-evenly">
+            <Button
+              size="sm"
+              variant="outline"
+              colorScheme={tag === 'Q2BANK' ? 'dark' : 'primary'}
+              bgColor={tag === 'Q2BANK' ? '#006AFF' : '#fff'}
+              onPress={() => setTag('Q2BANK')}
+            >
+              Q2BANK
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              colorScheme={tag === 'Q2PAY' ? 'dark' : 'primary'}
+              bgColor={tag === 'Q2PAY' ? '#006AFF' : '#fff'}
+              onPress={() => setTag('Q2PAY')}
+            >
+              Q2PAY
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              colorScheme={tag === 'Q2INGRESSOS' ? 'dark' : 'primary'}
+              bgColor={tag === 'Q2INGRESSOS' ? '#006AFF' : '#fff'}
+              onPress={() => setTag('Q2INGRESSOS')}
+            >
+              Q2INGRESSOS
+            </Button>
+          </HStack>
+        </ContainerTags>
 
         <Button
           leftIcon={<Icon as={AntDesign} name="plus" size="md" />}

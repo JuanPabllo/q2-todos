@@ -53,7 +53,7 @@ function Tasks({ navigation }: TasksProps) {
           {data?.map((task) => (
             <Card
               date={task.date}
-              tag="Q2pay"
+              tag={task.tag}
               title={task.description}
               id={task.id}
               key={task.id}

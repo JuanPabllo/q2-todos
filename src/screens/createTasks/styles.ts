@@ -16,6 +16,15 @@ export const Infos = styled.View`
 
 export const Form = styled.View`
   align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const ContainerTags = styled.View`
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 32px;
 `;
 
 export const TextPrimary = styled.Text<TextPrimaryProps>`
