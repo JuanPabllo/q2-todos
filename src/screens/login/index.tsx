@@ -50,10 +50,6 @@ function LoginScreen({ navigation }: LoginProps) {
       reset();
 
       await saveSecureStore(TOKEN_KEY, response.user.uid);
-      await toast.show({
-        bg: 'green.400',
-        description: 'Sucesso... Aguarde que você será redirecionado.',
-      });
 
       navigation.navigate('Tasks');
     } catch (err) {

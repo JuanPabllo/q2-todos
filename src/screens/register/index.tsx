@@ -54,11 +54,6 @@ function RegisterScreen({ navigation }: RegisterProps) {
       reset();
 
       await saveSecureStore(TOKEN_KEY, response.user.uid);
-      toast.show({
-        bg: 'green.400',
-        description:
-          'Sucesso... Sua conta foi criada aguarde que você será redirecionado.',
-      });
 
       navigation.navigate('Tasks');
     } catch (err) {
