@@ -7,11 +7,14 @@ import {
   FormControl,
   Icon,
   Input,
+  useToast,
   WarningOutlineIcon,
 } from 'native-base';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Header } from '../../components/Header';
+import { postCreateTasks } from '../../services/tasks/requests';
+import { TasksData } from '../../services/tasks/types';
 import { Container, Form, Infos, TextPrimary } from './styles';
 import {
   CreateTasksProps,
@@ -34,9 +37,27 @@ function CreateTasks({ navigation }: CreateTasksProps) {
     },
     resolver: zodResolver(FormCreateTasksSchema),
   });
+  const toast = useToast();
 
-  const onSubmit = (data: FormCreateTasksSchemaType) => {
-    console.log(data);
+  const onSubmit = async (data: FormCreateTasksSchemaType) => {
+    const formattedData: TasksData = {
+      description: data.description,
+      hour: time,
+      date,
+    };
+
+    try {
+      await postCreateTasks(formattedData);
+      toast.show({
+        bg: 'green.400',
+        description: 'Tarefa criada com sucesso.',
+      });
+    } catch (err) {
+      toast.show({
+        bg: 'red.400',
+        description: 'Erro ao criar tarefa',
+      });
+    }
   };
 
   const onTimePickerChange = (event: any, selectedTime: any) => {

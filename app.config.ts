@@ -8,6 +8,7 @@ export interface AppConfig {
   APP_ID_FIREBASE: string;
   MEASUREMENT_ID_FIREBASE: string;
   PROJECT_ID_FIREBASE: string;
+  API_URL_JSON_SERVER: string;
 }
 
 export default {
@@ -21,5 +22,6 @@ export default {
     APP_ID_FIREBASE: process.env.APP_ID_FIREBASE,
     MEASUREMENT_ID_FIREBASE: process.env.MEASUREMENT_ID_FIREBASE,
     PROJECT_ID_FIREBASE: process.env.PROJECT_ID_FIREBASE,
+    API_URL_JSON_SERVER: process.env.API_URL_JSON_SERVER,
   },
 };

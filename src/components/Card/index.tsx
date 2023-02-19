@@ -5,8 +5,10 @@ import { Actions, Container, Info, InfoItem, Tag } from './styles';
 import { CardProps } from './types';
 
 function Card({ title, tag, id, date }: CardProps) {
-  const hour = format(date, 'kk:mm');
-  const day = format(date, 'dd/MM');
+  const dateFormatted = new Date(date);
+
+  const hour = format(dateFormatted, 'kk:mm');
+  const day = format(dateFormatted, 'dd/MM');
 
   return (
     <Container>
