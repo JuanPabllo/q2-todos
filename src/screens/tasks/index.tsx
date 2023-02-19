@@ -41,8 +41,10 @@ function Tasks({ navigation }: TasksProps) {
   };
 
   useEffect(() => {
-    handleGetAllTasks();
-  }, []);
+    navigation.addListener('focus', () => {
+      handleGetAllTasks();
+    });
+  }, [navigation]);
 
   return (
     <Container>

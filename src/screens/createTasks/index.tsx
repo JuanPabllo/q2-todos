@@ -55,6 +55,7 @@ function CreateTasks({ navigation }: CreateTasksProps) {
         bg: 'green.400',
         description: 'Tarefa criada com sucesso.',
       });
+      navigation.navigate('Tasks');
     } catch (err) {
       toast.show({
         bg: 'red.400',
