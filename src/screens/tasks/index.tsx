@@ -4,6 +4,7 @@ import { ptBR } from 'date-fns/locale';
 import LottieView from 'lottie-react-native';
 import {
   Button,
+  Divider,
   Icon,
   ScrollView,
   Spinner,
@@ -15,6 +16,7 @@ import { Card } from '../../components/Card';
 import { Header } from '../../components/Header';
 import { DeleteTasks, GetTasks } from '../../services/tasks/requests';
 import { TasksDataResponse } from '../../services/tasks/types';
+import { formatterDataFinished, formatterDataToday } from './helpers';
 import { Actions, Container, NoData, TextPrimary, Wrapper } from './styles';
 import { TasksProps } from './types';
 
@@ -84,18 +86,46 @@ function Tasks({ navigation }: TasksProps) {
         {loading && <Spinner size="lg" />}
         {data.length ? (
           <ScrollView w={['400', '700']} h={450}>
-            {data.map((task) => (
-              <Card
-                date={task.date}
-                hour={task.hour}
-                tag={task.tag}
-                title={task.description}
-                id={task.id}
-                finish={task.finish}
-                key={task.id}
-                onDeleteTask={() => handleDeleteTask(task.id)}
-              />
-            ))}
+            {formatterDataToday(data).length ? (
+              formatterDataToday(data).map((task) => (
+                <Card
+                  date={task.date}
+                  hour={task.hour}
+                  tag={task.tag}
+                  title={task.description}
+                  id={task.id}
+                  finish={task.finish}
+                  key={task.id}
+                  onDeleteTask={() => handleDeleteTask(task.id)}
+                />
+              ))
+            ) : (
+              <TextPrimary fontSize={16}>
+                Você não tem nada para hoje 😀
+              </TextPrimary>
+            )}
+            <Divider my="2" bg="#ccced980" />
+
+            <TextPrimary fontSize={18}>Concluídas</TextPrimary>
+
+            {formatterDataFinished(data).length ? (
+              formatterDataFinished(data).map((task) => (
+                <Card
+                  date={task.date}
+                  hour={task.hour}
+                  tag={task.tag}
+                  title={task.description}
+                  id={task.id}
+                  finish={task.finish}
+                  key={task.id}
+                  onDeleteTask={() => handleDeleteTask(task.id)}
+                />
+              ))
+            ) : (
+              <TextPrimary fontSize={16}>
+                Você ainda não tem tarefas finalizas
+              </TextPrimary>
+            )}
           </ScrollView>
         ) : (
           <NoData>

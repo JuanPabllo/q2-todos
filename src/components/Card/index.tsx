@@ -82,7 +82,10 @@ function Card({ title, tag, id, date, hour, finish, onDeleteTask }: CardProps) {
                 colorScheme="dark"
                 size="sm"
                 bgColor="#006AFF"
-                onPress={() => onDeleteTask(id)}
+                onPress={() => {
+                  onDeleteTask(id);
+                  setIsOpenTop(!isOpenTop);
+                }}
               >
                 Excluir
               </Button>
