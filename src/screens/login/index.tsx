@@ -83,6 +83,7 @@ function LoginScreen({ navigation }: LoginProps) {
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
+                    keyboardType="email-address"
                     InputLeftElement={
                       <Icon
                         as={<MaterialIcons name="person" />}

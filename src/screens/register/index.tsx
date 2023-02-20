@@ -86,6 +86,7 @@ function RegisterScreen({ navigation }: RegisterProps) {
                     mx="3"
                     onBlur={onBlur}
                     onChangeText={onChange}
+                    keyboardType="email-address"
                     value={value}
                     InputLeftElement={
                       <Icon
