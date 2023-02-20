@@ -33,5 +33,4 @@ export const TextPrimary = styled.Text<TextPrimaryProps>`
   font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : '20px')};
   color: #262833;
   font-family: ${({ theme }) => theme.fonts.regular};
-  margin-bottom: 12px;
 `;
