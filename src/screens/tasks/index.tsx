@@ -23,7 +23,7 @@ import { TasksProps } from './types';
 function Tasks({ navigation }: TasksProps) {
   const [data, setData] = useState<TasksDataResponse[]>([]);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState<number>();
   const today = format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR });
   const toast = useToast();
   const animation = useRef(null);
@@ -97,6 +97,7 @@ function Tasks({ navigation }: TasksProps) {
                   finish={task.finish}
                   key={task.id}
                   onDeleteTask={() => handleDeleteTask(task.id)}
+                  setId={() => setId(task.id)}
                 />
               ))
             ) : (
@@ -119,6 +120,7 @@ function Tasks({ navigation }: TasksProps) {
                   finish={task.finish}
                   key={task.id}
                   onDeleteTask={() => handleDeleteTask(task.id)}
+                  setId={() => setId(task.id)}
                 />
               ))
             ) : (

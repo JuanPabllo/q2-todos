@@ -8,4 +8,5 @@ export type CardProps = {
   hour: Date;
   finish: boolean;
   onDeleteTask: (id: number) => Promise<void>;
+  setId: (value: React.SetStateAction<number>) => void;
 };

@@ -14,7 +14,16 @@ import { PutFinishTask } from '../../services/tasks/requests';
 import { Actions, Container, Info, InfoItem, Tag } from './styles';
 import { CardProps } from './types';
 
-function Card({ title, tag, id, date, hour, finish, onDeleteTask }: CardProps) {
+function Card({
+  title,
+  tag,
+  id,
+  date,
+  hour,
+  finish,
+  onDeleteTask,
+  setId,
+}: CardProps) {
   const dateFormatted = new Date(date);
   const hourFormatted = new Date(hour);
   const [isFinish, setIsFinish] = useState(finish);
@@ -46,6 +55,7 @@ function Card({ title, tag, id, date, hour, finish, onDeleteTask }: CardProps) {
   useEffect(() => {
     if (isFinish) {
       handleFinishTask();
+      setId(id);
     }
   }, [isFinish]);
 

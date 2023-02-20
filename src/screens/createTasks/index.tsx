@@ -42,6 +42,8 @@ function CreateTasks({ navigation }: CreateTasksProps) {
   const toast = useToast();
 
   const onSubmit = async (data: FormCreateTasksSchemaType) => {
+    if (!data.description) return;
+
     const formattedData: TasksData = {
       description: data.description,
       hour: time,
