@@ -14,3 +14,11 @@ export const formatterDataToday = (
     (task) => isToday(parseISO(String(task.date))) && task.finish === 'Pendente'
   );
 };
+
+export const formatterDataOthersDays = (
+  data: TasksDataResponse[]
+): TasksDataResponse[] => {
+  return data.filter(
+    (task) => !isToday(parseISO(String(task.date))) && task.finish === 'Pendente'
+  );
+};

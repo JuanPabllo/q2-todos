@@ -9,7 +9,7 @@ import {
   ScrollView,
   Spinner,
   useToast,
-  VStack,
+  VStack
 } from 'native-base';
 import { useEffect, useRef, useState } from 'react';
 import { Card } from '../../components/Card';
@@ -17,7 +17,11 @@ import { Header } from '../../components/Header';
 import { FilterModal } from '../../components/Modals/FilterModal';
 import { DeleteTasks, GetTasks } from '../../services/tasks/requests';
 import { Finish, Tag, TasksDataResponse } from '../../services/tasks/types';
-import { formatterDataFinished, formatterDataToday } from './helpers';
+import {
+  formatterDataFinished,
+  formatterDataOthersDays,
+  formatterDataToday
+} from './helpers';
 import { Actions, Container, NoData, TextPrimary, Wrapper } from './styles';
 import { TasksProps } from './types';
 
@@ -119,9 +123,7 @@ function Tasks({ navigation }: TasksProps) {
               </TextPrimary>
             )}
             <Divider my="2" bg="#ccced980" />
-
             <TextPrimary fontSize={18}>Concluídas</TextPrimary>
-
             {formatterDataFinished(data).length ? (
               formatterDataFinished(data).map((task) => (
                 <Card
@@ -139,6 +141,27 @@ function Tasks({ navigation }: TasksProps) {
             ) : (
               <TextPrimary fontSize={16}>
                 Você ainda não tem tarefas finalizas
+              </TextPrimary>
+            )}
+            <Divider my="2" bg="#ccced980" />
+            <TextPrimary fontSize={18}>Outras tarefas</TextPrimary>
+            {formatterDataOthersDays(data).length ? (
+              formatterDataOthersDays(data).map((task) => (
+                <Card
+                  date={task.date}
+                  hour={task.hour}
+                  tag={task.tag}
+                  title={task.description}
+                  id={task.id}
+                  finish={task.finish === 'Finalizada'}
+                  key={task.id}
+                  onDeleteTask={() => handleDeleteTask(task.id)}
+                  setId={() => setId(task.id)}
+                />
+              ))
+            ) : (
+              <TextPrimary fontSize={16}>
+                Nada para Exibir
               </TextPrimary>
             )}
           </ScrollView>
@@ -170,3 +193,4 @@ function Tasks({ navigation }: TasksProps) {
 }
 
 export { Tasks };
+
