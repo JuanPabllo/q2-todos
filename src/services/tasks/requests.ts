@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { TasksData, TasksDataResponse } from './types';
+import { GetTasksProps, TasksData, TasksDataResponse } from './types';
 
 export const PostCreateTasks = async (data: TasksData) => {
   try {
@@ -10,9 +10,17 @@ export const PostCreateTasks = async (data: TasksData) => {
   }
 };
 
-export const GetTasks = async (): Promise<TasksDataResponse[]> => {
+export const GetTasks = async ({
+  finish,
+  tag,
+}: GetTasksProps): Promise<TasksDataResponse[]> => {
   try {
-    const { data: response } = await api.get('/tasks');
+    const { data: response } = await api.get('/tasks', {
+      params: {
+        tag: tag,
+        finish: finish,
+      },
+    });
     return response;
   } catch (err) {
     console.log(err);

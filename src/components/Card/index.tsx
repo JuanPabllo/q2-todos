@@ -11,6 +11,7 @@ import {
 } from 'native-base';
 import { useEffect, useState } from 'react';
 import { PutFinishTask } from '../../services/tasks/requests';
+import { TasksData } from '../../services/tasks/types';
 import { Actions, Container, Info, InfoItem, Tag } from './styles';
 import { CardProps } from './types';
 
@@ -34,12 +35,12 @@ function Card({
   const day = format(dateFormatted, 'dd/MM');
 
   const handleFinishTask = async () => {
-    const data = {
+    const data: TasksData = {
       description: title,
       tag,
       date,
       hour,
-      finish: true,
+      finish: 'Finalizada',
     };
 
     try {
@@ -66,7 +67,7 @@ function Card({
           isDisabled={isFinish}
           isChecked={isFinish}
           onChange={setIsFinish}
-          value="finish"
+          value="Finalizada"
           colorScheme="success"
           accessibilityLabel="tarefa finalizada."
         />

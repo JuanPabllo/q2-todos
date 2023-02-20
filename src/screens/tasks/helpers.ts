@@ -4,13 +4,13 @@ import { TasksDataResponse } from '../../services/tasks/types';
 export const formatterDataFinished = (
   data: TasksDataResponse[]
 ): TasksDataResponse[] => {
-  return data.filter((task) => task.finish === true);
+  return data.filter((task) => task.finish === 'Finalizada');
 };
 
 export const formatterDataToday = (
   data: TasksDataResponse[]
 ): TasksDataResponse[] => {
   return data.filter(
-    (task) => isToday(parseISO(String(task.date))) && task.finish !== true
+    (task) => isToday(parseISO(String(task.date))) && task.finish === 'Pendente'
   );
 };

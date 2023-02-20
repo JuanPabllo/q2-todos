@@ -49,7 +49,7 @@ function CreateTasks({ navigation }: CreateTasksProps) {
       hour: time,
       date,
       tag,
-      finish: false,
+      finish: 'Pendente',
     };
 
     try {

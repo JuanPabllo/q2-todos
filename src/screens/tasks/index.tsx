@@ -14,8 +14,9 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { Card } from '../../components/Card';
 import { Header } from '../../components/Header';
+import { FilterModal } from '../../components/Modals/FilterModal';
 import { DeleteTasks, GetTasks } from '../../services/tasks/requests';
-import { TasksDataResponse } from '../../services/tasks/types';
+import { Finish, Tag, TasksDataResponse } from '../../services/tasks/types';
 import { formatterDataFinished, formatterDataToday } from './helpers';
 import { Actions, Container, NoData, TextPrimary, Wrapper } from './styles';
 import { TasksProps } from './types';
@@ -27,11 +28,14 @@ function Tasks({ navigation }: TasksProps) {
   const today = format(new Date(), "eeee, dd 'de' MMMM", { locale: ptBR });
   const toast = useToast();
   const animation = useRef(null);
+  const [showModal, setShowModal] = useState(false);
+  const [tag, setTag] = useState<Tag | undefined>();
+  const [finish, setFinish] = useState<Finish | undefined>();
 
   const handleGetAllTasks = async () => {
     setLoading(true);
     try {
-      const response = await GetTasks();
+      const response = await GetTasks({ finish, tag });
       setData(response);
     } catch (err) {
       toast.show({
@@ -63,10 +67,18 @@ function Tasks({ navigation }: TasksProps) {
 
   useEffect(() => {
     handleGetAllTasks();
-  }, [id]);
+  }, [id, tag, finish]);
 
   return (
     <Container>
+      <FilterModal
+        setShowModal={setShowModal}
+        showModal={showModal}
+        finish={finish}
+        setFinish={setFinish}
+        setTag={setTag}
+        tag={tag}
+      />
       <Header />
       <Wrapper>
         <Actions>
@@ -77,6 +89,7 @@ function Tasks({ navigation }: TasksProps) {
           <Button
             variant="outline"
             borderColor="#006AFF"
+            onPress={() => setShowModal(true)}
             borderWidth="1px"
             w={35}
             h={38}
@@ -94,7 +107,7 @@ function Tasks({ navigation }: TasksProps) {
                   tag={task.tag}
                   title={task.description}
                   id={task.id}
-                  finish={task.finish}
+                  finish={task.finish === 'Finalizada'}
                   key={task.id}
                   onDeleteTask={() => handleDeleteTask(task.id)}
                   setId={() => setId(task.id)}
@@ -117,7 +130,7 @@ function Tasks({ navigation }: TasksProps) {
                   tag={task.tag}
                   title={task.description}
                   id={task.id}
-                  finish={task.finish}
+                  finish={task.finish === 'Finalizada'}
                   key={task.id}
                   onDeleteTask={() => handleDeleteTask(task.id)}
                   setId={() => setId(task.id)}
