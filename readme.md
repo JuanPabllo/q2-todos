@@ -62,6 +62,8 @@ or
 $ npm run android # or ios
 
 # Run the backend
+$ npm install -g json-server
+
 $ yarn api
 or
 $ npm run api
