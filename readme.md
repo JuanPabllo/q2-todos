@@ -38,6 +38,7 @@ $ cd q2-todos
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
 - [Expo CLI](https://expo.dev/)
+- [json-server](https://github.com/typicode/json-server)
 
 This project use third party dependencies that need to be installed, use that command to install all needed dependencies
 
