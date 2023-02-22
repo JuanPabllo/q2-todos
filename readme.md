@@ -55,8 +55,13 @@ To start the Server run the command
 # Entering in directory
 $ cd q2-todos
 
-# Run the server
+# Run the APP
 $ yarn android # or ios
 or
 $ npm run android # or ios
+
+# Run the backend
+$ yarn api
+or
+$ npm run api
 ```
