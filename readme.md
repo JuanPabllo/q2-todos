@@ -68,3 +68,13 @@ $ yarn api
 or
 $ npm run api
 ```
+
+#### Screenshot
+
+<img width="300" src=".github/images/login.png" />
+<img width="300" src=".github/images/home_1.png" />
+<img width="300" src=".github/images/home_2.png" />
+<img width="300" src=".github/images/home_3.png" />
+<img width="300" src=".github/images/task.png" />
+<img width="300" src=".github/images/filter.png" />
+<img width="300" src=".github/images/remove.png" />
